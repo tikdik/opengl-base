@@ -6,7 +6,7 @@ public class MatrixState {
     static float matrixVP[] = new float[16];
     static float matrixProject[] = new float[16];
     static float matrixView[] = new float[16];
-    static float matrixMVP[];
+    //static float matrixMVP[];
     public static float[] getVPMatrix() {
         return matrixVP;
     }
@@ -17,7 +17,7 @@ public class MatrixState {
         return matrixView;
     }
     public static float[] getMVPMatrix(float[] modelMatrix) {
-        matrixMVP = new float[16];
+        float matrixMVP[] = new float[16];
         Matrix.multiplyMM(matrixMVP, 0, matrixView, 0, modelMatrix, 0);
         Matrix.multiplyMM(matrixMVP, 0, matrixProject, 0, matrixMVP, 0);
         return matrixMVP;

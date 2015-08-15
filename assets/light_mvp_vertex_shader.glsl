@@ -12,9 +12,11 @@ void main() {
 	vec3 modelviewPosition = vec3(u_MVMatrix * vec4(a_Position, 1.0));
 	vec3 modelViewNormal = vec3(u_MVMatrix * vec4(a_Normal, 0.0));
 	vec3 lightVector = normalize(u_LightPosition - modelviewPosition);
-	float diffuse = max(dot(modelViewNormal, lightVector), 0.1);
+	float diffuse = max(dot(modelViewNormal, lightVector), 0.0);
 	float distance = length(lightVector);
 	diffuse = diffuse * (1.0 / (1.0 + (0.25 * distance * distance)));
+	//add env light
+	diffuse = diffuse + 0.3;
 	v_Diffuse = diffuse;
 	v_TexturePosition = a_TexturePosition;
 }

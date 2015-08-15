@@ -26,7 +26,7 @@ public class CubeRender implements Renderer{
         GLES20.glViewport(0, 0, width, height);
         float ratio = ((float) width) / height;
         Matrix.frustumM(MatrixState.getProjectMatrix(), 0, -ratio, ratio, -1, 1, 25, 100);
-        Matrix.setLookAtM(MatrixState.getViewMatrxi(), 0, 0f, 0f, 45f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+        Matrix.setLookAtM(MatrixState.getViewMatrxi(), 0, -5.0f, 5.0f, 45f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
         Matrix.multiplyMM(MatrixState.getVPMatrix(), 0, MatrixState.getProjectMatrix(), 0, MatrixState.getViewMatrxi(), 0);
     }
     @Override

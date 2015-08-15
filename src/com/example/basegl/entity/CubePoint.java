@@ -13,20 +13,24 @@ import com.tikdik.res.ResHelper;
 public class CubePoint {
     float matrixModel[] = new float[16];
     //1.vertex data
-    float vertexs[] = {
-            -0.5f,0.5f,0.0f,
-            -0.5f,-0.5f,0.0f,
-            0.5f,0.5f,0.0f,
-            0.5f,-0.5f,0.0f,
-    };
+    float vertexs[] ;
     FloatBuffer vertexBuffer;
     BaseShader shader;
     //2.shader
     public CubePoint() {
+        vertexs = getVertex();
         vertexBuffer = BufferUtils.allocateDirectFloatBuffer(vertexs.length);
         vertexBuffer.put(vertexs);
         vertexBuffer.position(0);
         shader = createShader();
+    }
+    public float[] getVertex() {
+        return new float[] {
+                -0.5f,0.5f,0.0f,
+                -0.5f,-0.5f,0.0f,
+                0.5f,0.5f,0.0f,
+                0.5f,-0.5f,0.0f,
+        };
     }
     BaseShader createShader() {
         return new BaseShader();

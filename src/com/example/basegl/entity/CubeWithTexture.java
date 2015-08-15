@@ -13,16 +13,20 @@ import com.tikdik.res.ResHelper;
 
 public class CubeWithTexture extends CubePoint{
     //1.vertex data
-    float textures[] = {
-            0.0f, 0.0f,
-            0.0f, 1.0f,
-            1.0f, 0.0f,
-            1.0f, 1.0f,
-    };
+    float textures[];
+    public float[] getTextures() {
+        return new float[] {
+                0.0f, 0.0f,
+                0.0f, 1.0f,
+                1.0f, 0.0f,
+                1.0f, 1.0f,
+        };
+    }
     FloatBuffer textureBuffer;
     int textureId;
     public CubeWithTexture() {
         super();
+        textures = getTextures();
         textureBuffer = BufferUtils.allocateDirectFloatBuffer(textures.length);
         textureBuffer.put(textures);
         textureBuffer.position(0);
