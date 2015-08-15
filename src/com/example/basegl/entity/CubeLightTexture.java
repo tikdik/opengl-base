@@ -43,18 +43,12 @@ public class CubeLightTexture extends CubeWithTexture{
         lightBuffer.put(lightInModelSpace);
         lightBuffer.position(0);
     }
+    float angleInDegrees = 0;
     @Override
     public void changeModel() {
         Matrix.setIdentityM(matrixModel, 0);
-        //Matrix.scaleM(matrixModel, 0, 1.5f, 1.5f, 1);
-        long time = SystemClock.uptimeMillis() % 10000L;
-        float angleInDegrees = (360.0f / 10000.0f) * ((int) time);
-        float tx = (float) Math.sin(Math.PI / 180.0f * angleInDegrees);
-        Matrix.setIdentityM(lightModelMatrix, 0);
-        Matrix.translateM(lightModelMatrix, 0, tx, 0.0f, 0.5f);
-        
-        Matrix.multiplyMV(lightInWorldSpace, 0, lightModelMatrix, 0, lightInModelSpace, 0);
-        Matrix.multiplyMV(lightInEyeSpace, 0, MatrixState.getViewMatrxi(), 0, lightInWorldSpace, 0);
+        Matrix.rotateM(matrixModel, 0, angleInDegrees, 0.0f, 1.0f, 0.0f);
+        angleInDegrees += 2* Math.PI / 16 ;
     }
     @Override
     BaseShader createShader() {
@@ -74,12 +68,24 @@ public class CubeLightTexture extends CubeWithTexture{
         GLES20.glUniformMatrix4fv(((TextureLightShader)shader).getUniMVPMatrixLocation(), 1, false, MatrixState.getMVPMatrix(matrixModel), 0);
         GLES20.glUniformMatrix4fv(((TextureLightShader)shader).getUniMVLocation(), 1, false, MatrixState.getMVMatrix(matrixModel), 0);
         GLES20.glUniform3f(((TextureLightShader)shader).getUniLightPositionLocation(), lightInEyeSpace[0], lightInEyeSpace[1], lightInEyeSpace[2]);
+        normalBuffer.position(0);
         GLES20.glVertexAttribPointer(((TextureLightShader)shader).getAttrNormalLocation(), 3, GLES20.GL_FLOAT, false, 0, normalBuffer);
         GLES20.glEnableVertexAttribArray(((TextureLightShader)shader).getAttrNormalLocation());
     }
     @Override
     public void draw() {
         super.draw();
+        drawLight();
+    }
+    void drawLight() {
+        long time = SystemClock.uptimeMillis() % 10000L;
+        float angleInDegrees = (360.0f / 10000.0f) * ((int) time);
+        float tx = (float) Math.sin(Math.PI / 180.0f * angleInDegrees);
+        Matrix.setIdentityM(lightModelMatrix, 0);
+        Matrix.translateM(lightModelMatrix, 0, 0, 0.0f, 3f);
+        //Matrix.translateM(lightModelMatrix, 0, tx, 0.0f, 0.5f);
+        Matrix.multiplyMV(lightInWorldSpace, 0, lightModelMatrix, 0, lightInModelSpace, 0);
+        Matrix.multiplyMV(lightInEyeSpace, 0, MatrixState.getViewMatrxi(), 0, lightInWorldSpace, 0);
         lightShader.useProgram();
         float mvp[] = MatrixState.getMVPMatrix(lightModelMatrix);
         GLES20.glUniformMatrix4fv(lightShader.getUniMVPMatrixLocation(), 1, false, mvp, 0);

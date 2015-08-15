@@ -53,6 +53,7 @@ public class CubePoint {
     }
     public void changeModel() {}//for model transform
     public void bindData() {
+        vertexBuffer.position(0);
         GLES20.glVertexAttribPointer(shader.getAttrPositionLocation(), 3, GLES20.GL_FLOAT, false, 0, vertexBuffer);
         GLHelper.checkGlError("glVertexAttribPointer");
         GLES20.glEnableVertexAttribArray(shader.getAttrPositionLocation());

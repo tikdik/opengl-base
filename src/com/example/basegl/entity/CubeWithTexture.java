@@ -55,6 +55,7 @@ public class CubeWithTexture extends CubePoint{
     @Override
     public void bindData() {
         super.bindData();
+        textureBuffer.position(0);
         GLES20.glVertexAttribPointer(((TextureShader)shader).getAttrTexturePositionLocation(),
                 2, GLES20.GL_FLOAT, false, 0, textureBuffer);
         GLES20.glEnableVertexAttribArray(((TextureShader)shader).getAttrTexturePositionLocation());

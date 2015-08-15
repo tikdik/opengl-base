@@ -1,4 +1,4 @@
-attribute vec3 a_Position;
+attribute vec4 a_Position;
 attribute vec2 a_TexturePosition;
 uniform mat4 u_MVPMatrix;
 varying vec2 v_TexturePosition;
@@ -8,8 +8,8 @@ uniform vec3 u_LightPosition;
 attribute vec3 a_Normal;
 varying float v_Diffuse;
 void main() {
-	gl_Position =  u_MVPMatrix * vec4(a_Position, 1.0);
-	vec3 modelviewPosition = vec3(u_MVMatrix * vec4(a_Position, 1.0));
+	gl_Position =  u_MVPMatrix * a_Position;
+	vec3 modelviewPosition = vec3(u_MVMatrix * a_Position);
 	vec3 modelViewNormal = vec3(u_MVMatrix * vec4(a_Normal, 0.0));
 	vec3 lightVector = normalize(u_LightPosition - modelviewPosition);
 	float diffuse = max(dot(modelViewNormal, lightVector), 0.0);
