@@ -9,6 +9,7 @@ import com.example.basegl.entity.CubeMVPTexture;
 import com.example.basegl.entity.CubePoint;
 import com.example.basegl.entity.CubeTiLightTexture;
 import com.example.basegl.entity.CubeWithTexture;
+import com.example.basegl.entity.FBOTexture;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -53,6 +54,7 @@ public class ListActivity extends Activity {
         mapEntitys.put(pos++, CubeMVPTexture.class);
         mapEntitys.put(pos++, CubeLightTexture.class);
         mapEntitys.put(pos++, CubeTiLightTexture.class);
+        mapEntitys.put(pos++, FBOTexture.class);
         String datas[] = new String[pos];
         for (int i = 0; i < pos; i++) {
             datas[i] = (mapEntitys.get(i).getSimpleName());

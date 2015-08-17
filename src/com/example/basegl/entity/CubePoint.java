@@ -39,6 +39,9 @@ public class CubePoint {
         shader.createShader(ResHelper.loadFromAssetsFile(shader.getVertexShaderFileName()),
                 ResHelper.loadFromAssetsFile(shader.getFragmentShaderFileName()));
     }
+    public void onSurfaceSizeChange(int width, int height) {
+        
+    }
     /**
      * draw
      * 1.use program

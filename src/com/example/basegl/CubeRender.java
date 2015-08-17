@@ -32,12 +32,12 @@ public class CubeRender implements Renderer{
         Matrix.frustumM(MatrixState.getProjectMatrix(), 0, -ratio, ratio, -1, 1, 25, 100);
         Matrix.setLookAtM(MatrixState.getViewMatrxi(), 0, -0.0f, 0.0f, 45f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
         Matrix.multiplyMM(MatrixState.getVPMatrix(), 0, MatrixState.getProjectMatrix(), 0, MatrixState.getViewMatrxi(), 0);
+        if (cubePoint != null)
+            cubePoint.onSurfaceSizeChange(width, height);
     }
     @Override
     public void onDrawFrame(GL10 gl) {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
-//        GLES20.glEnable(GLES20.GL_BLEND);
-//        GLES20.glBlendFunc(GLES20.GL_ONE, GLES20.GL_ONE);
         if (cubePoint != null)
             cubePoint.draw();
     }
